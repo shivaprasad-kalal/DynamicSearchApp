@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div align="center">
+
+	<h1>Insurance Holder Details</h1>
+	<br /> <br />
+
+	<form th:action="@{/plans}" th:method="post">
+		Plan Name: <select name="planName">
+			<option value="">-SELECT-</option>
+			<option value="SNAP">SNAP</option>
+			<option value="CCAP">CCAP</option>
+		</select> 
+		&nbsp; &nbsp; 
+		Plan Status: <select name="planStatus">
+			<option value="">-SELECT-</option>
+			<option value="APPROVED">APPROVED</option>
+			<option value="DECLINED">DECLINED</option>
+		</select> 
+		&nbsp; 
+		<input type="submit" value="Search" />
+	</form>
+	<br /></br/>
+
+	<table th:if="${holders !=null}" border="1" cellpadding="10">
+
+		<thead>
+			<tr>
+				<th>Plan ID</th>
+				<th>Plan Name</th>
+				<th>Holder Name</th>
+				<th>Plan Status</th>
+				<th>SSN ID</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="obj:${holders}">
+				<td th:text="${obj.planId}">Plan ID</td>
+				<td th:text="${obj.planName}">Plan Name</td>
+				<td th:text="${obj.holderName}">Plan HolderName</td>
+				<td th:text="${obj.planStatus}">Plan Status</td>
+				<td th:text="${obj.ssn}">Plan HolderSSN</td>
+			</tr>
+		</tbody>
+
+	</table>
+	<br /> <br /> 
+		<a style="text-decoration: none" th:href="@{/pdf_report(planName=${planName}, planStatus=${planStatus})}"
+		role="button">Export PDF</a> &nbsp; &nbsp; 
+		<a style="text-decoration: none" th:href="@{/excel_report(planName=${planName}, planStatus=${planStatus})}"
+		role="button">ExportExcel</a>
+</div>
+</html>
